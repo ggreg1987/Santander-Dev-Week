@@ -25,7 +25,7 @@ public class UserResource {
     @ResponseStatus(CREATED)
     public UserDTO save(@RequestBody User user) {
         var entity = service.create(user);
-        return  mapper.convertValue(entity,UserDTO.class);
+        return  toDTO(entity);
 
     }
 
@@ -33,7 +33,7 @@ public class UserResource {
     @ResponseStatus(OK)
     public UserDTO findById(@PathVariable Long id) {
         var entity = service.findById(id);
-        return mapper.convertValue(entity,UserDTO.class);
+        return toDTO(entity);
 
     }
 
