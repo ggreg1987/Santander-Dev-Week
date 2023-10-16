@@ -42,5 +42,11 @@ public class User implements Serializable {
         return this.features;
     }
 
-    
+    public List<News> getNews() {
+        if(this.news.isEmpty()) {
+            this.news = new ArrayList<>();
+        }
+        return this.news;
+    }
+
 }
