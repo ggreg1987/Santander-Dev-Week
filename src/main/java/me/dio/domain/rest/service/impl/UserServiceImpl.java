@@ -6,6 +6,8 @@ import me.dio.domain.repository.UserRepository;
 import me.dio.domain.rest.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -14,6 +16,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return null;
+        return repository
+                .findById(id)
+                .orElseThrow(NoSuchElementException::new);
     }
 }
