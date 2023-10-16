@@ -1,7 +1,6 @@
 package me.dio.domain.rest.dto;
 
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 
