@@ -21,10 +21,17 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
+    @Override
+    public User create(User user) {
+        var userChecked = existsAccount(user);
+        return repository.save(userChecked);
+    }
+
     private User existsAccount(User user) {
         if(repository.existsByAccountNumber(user.getAccount().getNumber())) {
             throw new IllegalArgumentException("This Account number already exists.");
+        } else {
+            return user;
         }
-        return user;
     }
 }
