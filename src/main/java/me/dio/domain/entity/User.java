@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -33,4 +34,13 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<News> news;
+
+    public List<Features> getFeatures() {
+        if(this.features.isEmpty()) {
+            this.features = new ArrayList<>();
+        }
+        return this.features;
+    }
+
+    
 }
