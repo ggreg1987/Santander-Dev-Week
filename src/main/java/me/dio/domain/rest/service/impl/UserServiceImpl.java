@@ -20,4 +20,11 @@ public class UserServiceImpl implements UserService {
                 .findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
+
+    private User existsAccount(User user) {
+        if(repository.existsByAccountNumber(user.getAccount().getNumber())) {
+            throw new IllegalArgumentException("This Account number already exists.");
+        }
+        return user;
+    }
 }
