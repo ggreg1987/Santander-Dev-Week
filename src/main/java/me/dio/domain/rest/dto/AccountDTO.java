@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class AccountDTO
         extends RepresentationModel<AccountDTO> implements Serializable {
 
-    private Long id;
+
     private String number;
     private String agency;
     private BigDecimal balance;

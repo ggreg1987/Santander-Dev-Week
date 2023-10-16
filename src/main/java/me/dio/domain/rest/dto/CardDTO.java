@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class CardDTO
         extends RepresentationModel<CardDTO> implements Serializable {
 
-    private Long id;
+
     private String number;
     private BigDecimal limit;
 }
