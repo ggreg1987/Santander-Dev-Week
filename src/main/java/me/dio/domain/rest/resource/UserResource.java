@@ -37,6 +37,11 @@ public class UserResource {
 
     }
 
+    private UserDTO toDTO(User user) {
+        var dto = mapper.convertValue(user, UserDTO.class);
+        return toHateos(dto);
+    }
+
     private UserDTO toHateos(UserDTO dto) {
         dto.add(linkTo(methodOn(UserResource.class)
                 .findById(dto.getId())).withSelfRel());
