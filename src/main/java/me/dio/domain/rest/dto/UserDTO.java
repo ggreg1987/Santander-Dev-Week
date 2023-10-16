@@ -2,13 +2,15 @@ package me.dio.domain.rest.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Builder
-public class UserDTO implements Serializable {
+public class UserDTO
+        extends RepresentationModel<UserDTO> implements Serializable {
 
     private Long id;
     private String name;

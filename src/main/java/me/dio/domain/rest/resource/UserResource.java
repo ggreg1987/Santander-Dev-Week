@@ -6,6 +6,8 @@ import me.dio.domain.entity.User;
 import me.dio.domain.rest.dto.UserDTO;
 import me.dio.domain.rest.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -23,15 +25,21 @@ public class UserResource {
     @ResponseStatus(CREATED)
     public UserDTO save(@RequestBody User user) {
         var entity = service.create(user);
-        var dto = mapper.convertValue(entity,UserDTO.class);
-        return dto;
+        return  mapper.convertValue(entity,UserDTO.class);
+
     }
 
     @GetMapping(value = "{id}",produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public UserDTO findById(@PathVariable Long id) {
         var entity = service.findById(id);
-        var dto = mapper.convertValue(entity,UserDTO.class);
+        return mapper.convertValue(entity,UserDTO.class);
+
+    }
+
+    private UserDTO toHateos(UserDTO dto) {
+        dto.add(linkTo(methodOn(UserResource.class)
+                .findById(dto.getId())).withSelfRel());
         return dto;
     }
 }
