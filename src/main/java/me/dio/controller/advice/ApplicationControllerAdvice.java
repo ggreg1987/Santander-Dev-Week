@@ -3,7 +3,6 @@ package me.dio.controller.advice;
 import me.dio.controller.exception.AlreadyExistsException;
 import me.dio.controller.exception.ApiError;
 import me.dio.controller.exception.CantFindIdException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

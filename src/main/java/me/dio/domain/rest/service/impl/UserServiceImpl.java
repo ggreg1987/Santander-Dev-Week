@@ -1,6 +1,7 @@
 package me.dio.domain.rest.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.dio.controller.exception.CantFindIdException;
 import me.dio.domain.entity.User;
 import me.dio.domain.repository.UserRepository;
 import me.dio.domain.rest.service.UserService;
@@ -15,10 +16,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     @Override
-    public User findById(Long id) {
+    public User findById(Long id) throws CantFindIdException {
         return repository
                 .findById(id)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new CantFindIdException("Id not exists"));
     }
 
     @Override
