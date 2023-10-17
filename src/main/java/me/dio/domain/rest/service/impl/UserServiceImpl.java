@@ -1,6 +1,7 @@
 package me.dio.domain.rest.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.dio.controller.exception.AlreadyExistsException;
 import me.dio.controller.exception.CantFindIdException;
 import me.dio.domain.entity.User;
 import me.dio.domain.repository.UserRepository;
@@ -23,14 +24,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
+    public User create(User user) throws AlreadyExistsException {
         var userChecked = existsAccount(user);
         return repository.save(userChecked);
     }
 
-    private User existsAccount(User user) {
+    private User existsAccount(User user) throws AlreadyExistsException {
         if(repository.existsByAccountNumber(user.getAccount().getNumber())) {
-            throw new IllegalArgumentException("This Account number already exists.");
+            throw new AlreadyExistsException("This Account number already exists.");
         } else {
             return user;
         }

@@ -2,6 +2,8 @@ package me.dio.domain.rest.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import me.dio.controller.exception.AlreadyExistsException;
+import me.dio.controller.exception.CantFindIdException;
 import me.dio.domain.entity.User;
 import me.dio.domain.rest.dto.UserDTO;
 import me.dio.domain.rest.service.UserService;
@@ -23,7 +25,7 @@ public class UserResource {
 
     @PostMapping(produces = APPLICATION_JSON_VALUE,consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
-    public UserDTO save(@RequestBody User user) {
+    public UserDTO save(@RequestBody User user) throws AlreadyExistsException, CantFindIdException {
         var entity = service.create(user);
         return  toDTO(entity);
 
@@ -31,18 +33,18 @@ public class UserResource {
 
     @GetMapping(value = "{id}",produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-    public UserDTO findById(@PathVariable Long id) {
+    public UserDTO findById(@PathVariable Long id) throws CantFindIdException {
         var entity = service.findById(id);
         return toDTO(entity);
 
     }
 
-    private UserDTO toDTO(User user) {
+    private UserDTO toDTO(User user) throws CantFindIdException {
         var dto = mapper.convertValue(user, UserDTO.class);
         return toHateos(dto);
     }
 
-    private UserDTO toHateos(UserDTO dto) {
+    private UserDTO toHateos(UserDTO dto) throws CantFindIdException {
         dto.add(linkTo(methodOn(UserResource.class)
                 .findById(dto.getId())).withSelfRel());
         return dto;
